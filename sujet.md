@@ -29,6 +29,40 @@ From our point of view, it is unthinkable not to put an error clause on such a c
 ##
 ### 2. Apache Commons projects are known for the quality of their code and development practices. They use dedicated issue tracking systems to discuss and follow the evolution of bugs and new features. The following link https://issues.apache.org/jira/projects/COLLECTIONS/issues/COLLECTIONS-794?filter=doneissues points to the issues considered as solved for the Apache Commons Collections project. Among those issues find one that corresponds to a bug that has been solved. Classify the bug as local or global. Explain the bug and the solution. Did the contributors of the project add new tests to ensure that the bug is detected if it reappears in the future?
 
+[Issue](https://issues.apache.org/jira/browse/COLLECTIONS-673?jql=project%20%3D%20COLLECTIONS%20AND%20statusCategory%20%3D%20Done%20ORDER%20BY%20cf%5B12310200%5D%20ASC)
+
+The bug appears during the call to the method **ListUtils.partition()** on a large list, a potential overflow must appear.
+
+The bug was found on  2nd February 2018 and solved on June 2018, 12th. 
+
+We think that the bug is local because it was observed with a really huge list whose size was greater than Integer.MAX_VALUE.
+
+To solve it, **size()** method have been updated from
+
+```java
+public int size() {
+    return (list.size() + size - 1) / size;
+}
+```
+
+to
+
+```java
+@Override
+public int size() {
+    return (int)Math.ceil((double)list.size() / (double)size);
+}
+```
+
+And they add non regression test :
+```java
+List<List<Integer>> partitionMax = ListUtils.partition(strings, Integer.MAX_VALUE);
+assertEquals(1, partitionMax.size());
+assertEquals(strings.size(), partitionMax.get(0).size());
+assertEquals(strings, partitionMax.get(0));
+```
+
+
 
 ##
 ### 3. Netflix is famous, among other things we love, for the popularization of *Chaos Engineering*, a fault-tolerance verification technique. The company has implemented protocols to test their entire system in production by simulating faults such as a server shutdown. During these experiments they evaluate the system's capabilities of delivering content under different conditions. The technique was described in [a paper](https://arxiv.org/ftp/arxiv/papers/1702/1702.05843.pdf) published in 2016. Read the paper and briefly explain what are the concrete experiments they perform, what are the requirements for these experiments, what are the variables they observe and what are the main results they obtained. Is Netflix the only company performing these experiments? Speculate how these experiments could be carried in other organizations in terms of the kind of experiment that could be performed and the system variables to observe during the experiments.
