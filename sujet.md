@@ -1,3 +1,9 @@
+# Students
+
+**Alexis Leloup**
+
+**Simon Lecordier**
+
 # Practical Session #1: Introduction
 
 ### 1. Find in news sources a general public article reporting the discovery of a software bug. Describe the bug. If possible, say whether the bug is local or global and describe the failure that manifested its presence. Explain the repercussions of the bug for clients/consumers and the company or entity behind the faulty program. Speculate whether, in your opinion, testing the right scenario would have helped to discover the fault.
@@ -66,6 +72,22 @@ assertEquals(strings, partitionMax.get(0));
 
 ##
 ### 3. Netflix is famous, among other things we love, for the popularization of *Chaos Engineering*, a fault-tolerance verification technique. The company has implemented protocols to test their entire system in production by simulating faults such as a server shutdown. During these experiments they evaluate the system's capabilities of delivering content under different conditions. The technique was described in [a paper](https://arxiv.org/ftp/arxiv/papers/1702/1702.05843.pdf) published in 2016. Read the paper and briefly explain what are the concrete experiments they perform, what are the requirements for these experiments, what are the variables they observe and what are the main results they obtained. Is Netflix the only company performing these experiments? Speculate how these experiments could be carried in other organizations in terms of the kind of experiment that could be performed and the system variables to observe during the experiments.
+
+Netflix uses chaos engineering to ensure that their system always works properly in any host environment.
+
+Roughly speaking, this consists of testing a system by injecting variables to disrupt the system.
+
+For example, they will inject latency, and will deliberately make requests fail, exchanges between services or even an entire service.
+
+Concretely, the principle is to simulate two environments, a control one which is stable and an experimental one which is stable at the beginning, then we inject real world variables (server failure, hard disk failure, network failure...) and try to maintain the experimental system in a state equivalent to the control system.
+
+Testing the reliability of Netflix's global system does not stop at streaming only, but at all the different services they have set up on their platform.
+
+These experiments show that the system will manage to maintain its state if it encounters complications related to unforeseen events
+
+If a weakness is encountered it can be corrected to maintain software quality.
+
+Many companies use this system such as Twilio, Netflix, LinkedIn, Facebook, Google, Microsoft, Amazon
 
 
 ##
