@@ -125,6 +125,10 @@ Yes, this fixed several deficiencies in the official WebAssembly specification, 
 
 They created a mechanised proof for the type soundness properties stated in the working group’s paper.
 
+They also carried out fuzzing experiments. 
+
+Fuzzing consists in sending, in a massive and automated way, data to a program in order to identify vulnerabilities.
+
 #### Does this new specification removes the need for testing?
 
 No, but this specification increases the reliability of the system enormously.
